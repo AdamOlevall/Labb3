@@ -25,10 +25,9 @@ def cow_say():
 	req = urllib2.Request("http://smog.uppmax.uu.se:8080/swift/v1/tweets")
 	response = urllib2.urlopen(req)
 	tweetsObject = response.read().split()
-	for t in tweetsObject:
-		tweets.append(t)
+	
 
-	job = group(parseTweets.s(i) for i in tweets)
+	job = group(parseTweets.s(i) for i in tweetsObject)
 	tweetTask = job.apply_async()
 	print "Celery is working..."
 	counter = 0
