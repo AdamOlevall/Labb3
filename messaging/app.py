@@ -32,7 +32,7 @@ def cow_say():
 	
 	while (tweetTask.ready() == False):
 		#print "... %i s" %(counter)
-		int counter = 0
+		counter = 0
 	time_elapsed = (time.time() - startTime)	
 	print "The task is done!"
 
