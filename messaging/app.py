@@ -30,11 +30,10 @@ def cow_say():
 	job = group(parseTweets.s(i) for i in tweetsObject)
 	tweetTask = job.apply_async()
 	print "Celery is working..."
-	counter = 0
+	
 	while (tweetTask.ready() == False):
 		#print "... %i s" %(counter)
-		counter += 5
-		time.sleep(5)
+		int counter = 0
 	print "The task is done!"
 
 	toReturn = tweetTask.get()
