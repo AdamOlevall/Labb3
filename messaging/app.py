@@ -25,8 +25,7 @@ def cow_say():
 	req = urllib2.Request("http://smog.uppmax.uu.se:8080/swift/v1/tweets")
 	response = urllib2.urlopen(req)
 	tweetsObject = response.read().split()
-	
-
+	startTime = time.time()
 	job = group(parseTweets.s(i) for i in tweetsObject)
 	tweetTask = job.apply_async()
 	print "Celery is working..."
@@ -34,6 +33,7 @@ def cow_say():
 	while (tweetTask.ready() == False):
 		#print "... %i s" %(counter)
 		int counter = 0
+	time_elapsed = (time.time() - startTime)	
 	print "The task is done!"
 
 	toReturn = tweetTask.get()
@@ -43,7 +43,7 @@ def cow_say():
 		c.update(d)
 	
 	display = dict(c)
-	return jsonify(display), 200
+	return jsonify(display, "Time elapsed: " + str(time_elapsed)), 200
 
 if __name__ == '__main__':
 	app.run(host='0.0.0.0',debug=True)
